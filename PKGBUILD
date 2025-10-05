@@ -23,7 +23,7 @@ source=("git+https://github.com/dini/rtl8723bu.git#commit=${_commit}"
         'linux618.patch'
         'blacklist-rtl8xxxu.conf')
 sha256sums=('98f9ed34724ae0f72ef12166978ec998eac1286968655a53107247e908589dc2'
-            '3e996c0a2516e643fd61a57e4c7b6eb35d71ea4cc0e2595568c0f907723bcfe3'
+            'b8dba00349186fbce19b31cad6c0f54a9a92a158ed10b556112dfad46ba9c00d'
             '7c726ad04083c8e620bc11c837e5f51d3e9e2a5c3e19c333b2968eb39f1ef07e')
 
 pkgver() {

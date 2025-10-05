@@ -7,7 +7,7 @@ index 07f021d..4977a49 100644
  
  /* Initialize the hash state */
 -static void sha256_init(struct rtw_sha256_state *md)
-+static void sha256_init_rt(struct rtw_sha256_state *md)
++static void rtw_sha256_init(struct rtw_sha256_state *md)
  {
  	md->curlen = 0;
  	md->length = 0;
@@ -16,7 +16,7 @@ index 07f021d..4977a49 100644
  	size_t i;
  
 -	sha256_init(&ctx);
-+	sha256_init_rt(&ctx);
++	rtw_sha256_init(&ctx);
  	for (i = 0; i < num_elem; i++)
  		if (sha256_process(&ctx, addr[i], len[i]))
  			return -1;
