@@ -20,8 +20,10 @@ makedepends=('git' "${_linuxprefix}-headers")
 provides=("${_module}")
 _commit=3d92d4411b674f7b62e482457724a317fd1d4c0e  # master
 source=("git+https://github.com/dini/rtl8723bu.git#commit=${_commit}"
+        'linux618.patch'
         'blacklist-rtl8xxxu.conf')
 sha256sums=('98f9ed34724ae0f72ef12166978ec998eac1286968655a53107247e908589dc2'
+            '3e996c0a2516e643fd61a57e4c7b6eb35d71ea4cc0e2595568c0f907723bcfe3'
             '7c726ad04083c8e620bc11c837e5f51d3e9e2a5c3e19c333b2968eb39f1ef07e')
 
 pkgver() {
@@ -34,6 +36,8 @@ prepare() {
 
     # do not compile with CONCURRENT_MODE
     sed -i 's/ccflags-y += -DCONFIG_CONCURRENT_MODE/#ccflags-y += -DCONFIG_CONCURRENT_MODE/g' Makefile
+    
+    patch -p1 -i ../linux618.patch
 }
 
 build() {
