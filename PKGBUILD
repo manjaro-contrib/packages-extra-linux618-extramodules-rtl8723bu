@@ -8,8 +8,8 @@ _linuxprefix=linux618
 
 _module=rtl8723bu
 pkgname="${_linuxprefix}-${_module}"
-pkgver=20250813
-pkgrel=32
+pkgver=20260507
+pkgrel=1
 pkgdesc="Driver for RTL8723BU"
 arch=('x86_64')
 url="https://github.com/dini/rtl8723bu"
@@ -18,12 +18,10 @@ groups=("${_linuxprefix}-extramodules")
 depends=("${_linuxprefix}")
 makedepends=('git' "${_linuxprefix}-headers")
 provides=("${_module}")
-_commit=3d92d4411b674f7b62e482457724a317fd1d4c0e  # master
+_commit=447ea628fce35aebc5cb857a788be042479284ff  # master
 source=("git+https://github.com/dini/rtl8723bu.git#commit=${_commit}"
-        'linux618.patch'
         'blacklist-rtl8xxxu.conf')
-sha256sums=('98f9ed34724ae0f72ef12166978ec998eac1286968655a53107247e908589dc2'
-            'b8dba00349186fbce19b31cad6c0f54a9a92a158ed10b556112dfad46ba9c00d'
+sha256sums=('73149a69f2f5c3136b530f325834efc2d6c2bd3d73ad3c8a199d8e8a1753bdcc'
             '7c726ad04083c8e620bc11c837e5f51d3e9e2a5c3e19c333b2968eb39f1ef07e')
 
 pkgver() {
@@ -36,14 +34,13 @@ prepare() {
 
     # do not compile with CONCURRENT_MODE
     sed -i 's/ccflags-y += -DCONFIG_CONCURRENT_MODE/#ccflags-y += -DCONFIG_CONCURRENT_MODE/g' Makefile
-    
-    patch -p1 -i ../linux618.patch
 }
 
 build() {
     _kernver="$(cat /usr/src/${_linuxprefix}/version)"
 
      cd "${_module}"
+     export USER_EXTRA_CFLAGS=" -Wno-incompatible-pointer-types"
 
     # avoid using the Makefile directly -- it doesn't understand
     # any kernel but the current.
